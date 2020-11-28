@@ -1,29 +1,29 @@
-# For a custom request you need to specify a profile (with weighting=custom) but on import we don't need this
-# profile: bike
+# Custom Profile für GraphHopper Routing
+# Optimiert für E-CargoBikes mit Unterstützung bis 25 km/h
 
-# let's assume cargo bikes are e-bikes and we should lower speed to prefer shorter and not faster routes automatically
+# Geschwindigkeiten pro Straßenart
 max_speed:
   road_class:
-    primary: 28
+    primary: 25
+    residential: 23
     footway: 10
-    cycleway: 28
+    cycleway: 24
     track: 23
-
-# if no other condition matches
+# Auf allen anderen Straßen 25 km/h
 max_speed_fallback: 25
 
 priority:
-  # exclude steps
+  # CargoRocket optimierte Gewichtung
   road_class:
     steps: 0
     footway: 0.3
     cycleway: 1.0
-    primary: 0.6
+    primary: 0.55
     secondary: 0.75
-    residential: 0.9
+    residential: 0.95
     tertiary: 0.8
     track: 0.8
-    path: 0.5
+    path: 0.4
     unclassified: 0.9
   surface:
     sand: 0
@@ -31,12 +31,12 @@ priority:
     paving_stones: 0.7
     asphalt: 1.0
     gravel: 0.3
-    fine_gravel: 0.4
-  # prefer better tracks
-  track_type: { other: 1.0, grade1: 1.0, grade2: 0.4, grade3: 0.2, "*": 0.2 }
-  # prefer official bike routes
+    fine_gravel: 0.25
+  # Feld- und Waldwege vermeiden, wenn nicht asphaltiert
+  track_type: { other: 0.85, grade1: 1.0, grade2: 0.4, grade3: 0.2, "*": 0.2 }
+  # Radrouten von OSM bevorzugen
   bike_network: { other: 1.0 }
-  # avoid all situations where we have to get off the bike
+  # Absteigen ist nicht möglicht
   get_off_bike:
     "true": 0.0
     "false": 1.0
