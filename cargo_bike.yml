@@ -26,7 +26,7 @@ priority:
     path: 0.4
     unclassified: 0.9
   surface:
-    sand: 0
+    sand: 0.03
     cobblestone: 0.3
     paving_stones: 0.7
     asphalt: 1.0
@@ -38,9 +38,10 @@ priority:
   bike_network: { other: 1.0 }
   # Absteigen ist nicht möglicht
   get_off_bike:
-    "true": 0.0
+    "true": 0.05
     "false": 1.0
   max_height:
     "<2.3": 0
   max_width:
     "<1.8": 0
+    "<2.0": 0.6
